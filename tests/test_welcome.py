@@ -26,15 +26,10 @@ class Lusha_ContactSales(unittest.TestCase):
         welcome_page = WelcomePage(self.driver)
         # Checks if the word "Python" is in title
         self.assertTrue(welcome_page.is_title_matches(), "Lusha title doesn't match.")
-        welcome_page.click_form_button()
+        welcome_page.open_contact_sales_form()
 
     def tearDown(self):
         self.driver.quit()
-
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def code():
@@ -48,22 +43,8 @@ def code():
     driver.get(CONFIG["welcome_page"])
 
     welcome_page = WelcomePage(driver)
+    welcome_page.open_contact_sales_form()
 
-    # tags = (By.CLASS_NAME, "app.btn.js-contact-form-btn.contact-sales-btn.d-lo.d-li-none.m-0")
-    tags = (By.XPATH, "//button[contains(@class, 'app btn js-contact-form-btn contact-sales-btn d-lo d-li-none m-0') and @data-test-id='header-form-contact-sales-visitors-button']")
-
-    # button_element = driver.find_element(*tags)
-    button_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located(tags))
-    button_element.click()
-
-    wait = WebDriverWait(driver, 10)
-    form_element = wait.until(EC.presence_of_element_located((By.ID, "cf7mls-next-btn-cf7mls_step-1")))
-
-    # Check if the form is displayed
-    if form_element.is_displayed():
-        print("The form is open.")
-    else:
-        print("The form did not open as expected.")
 
 
 if __name__ == "__main__":
